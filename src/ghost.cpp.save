@@ -1,0 +1,124 @@
+#include "ghost.h"
+
+#include <GL/glfw.h>
+
+Ghost::Ghost()
+{
+    active = false;
+
+    tmpDist = 0;
+    totalDist = 0;
+
+    aniFrame = 0;
+    boo = false;
+    megaBoo
+
+    startTime = 0;
+
+    trans = 0;
+}
+
+void Ghost::drawMe(int n) {
+    int hudShift = n*48;
+
+    glColor4f(1, 1, 1, (active) ? .25 : 1);
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.75, 0.25);
+        glVertex2f(16+hudShift, 16);
+
+        glTexCoord2f(1.0, 0.25);
+        glVertex2f(48+hudShift, 16);
+
+        glTexCoord2f(1.0, 0.5);
+        glVertex2f(48+hudShift, 48);
+
+        glTexCoord2f(0.75, 0.5);
+        glVertex2f(16+hudShift, 48);
+    glEnd();
+
+    if (!active)
+        return;
+
+    float cxShift = aniFrame*0.25;
+
+    int dy = y-(glfwGetTime() - startTime)*5.0;
+
+    glColor4f(1, 1, 1, trans);
+
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.5+cxShift, 0.0);
+        glVertex2f(x, dy);
+
+        glTexCoord2f(0.75+cxShift, 0.0);
+        glVertex2f(x+32, dy);
+
+        glTexCoord2f(0.75+cxShift, 0.25);
+        glVertex2f(x+32, dy+32);
+
+        glTexCoord2f(0.5+cxShift, 0.25);
+        glVertex2f(x, dy+32);
+    glEnd();
+
+    if (boo) {
+        glColor4f(1, 1, 1, 1);
+
+        glBegin(GL_QUADS);
+            glTexCoord2f(0.5, 0.25);
+            glVertex2f(x+20, y-16);
+
+            glTexCoord2f(0.75, 0.25);
+            glVertex2f(x+52, y-16);
+
+            glTexCoord2f(0.75, 0.5);
+            glVertex2f(x+52, y+16);
+
+            glTexCoord2f(0.5, 0.5);
+            glVertex2f(x+20, y+16);
+        glEnd();
+    }
+}
+
+void Ghost::activate(int a, int b) {
+    active = true;
+    setPos(a, b);
+    totalDist = 0;
+    tmpDist = 0;
+
+    startTime = glfwGetTime();
+}
+
+void Ghost::update() {
+    if (!active)
+        return;
+
+    float deltaTime = glfwGetTime() - startTime;
+    float deltaAniTime = glfwGetTime() - aniTime;
+
+    if (deltaAniTime >= 0.4) {
+        aniFrame++;
+        if (aniFrame >= 2)
+            aniFrame = 0;
+        aniTime = glfwGetTime();
+    }
+
+    if (deltaTime >= 1.0 && deltaTime < 1.25) {
+        boo = true;
+    } else {
+        boo = false;
+    }
+
+    if (deltaTime <= 1.0) {
+        trans = deltaTime;
+    } else {
+        trans = 2.0 - deltaTime;
+    }
+
+    if (deltaTime >= 2.0) {
+        active = false;
+    }
+}
+
+void Ghost::setPos(int a, int b) {
+    x = a;
+    y = b;
+}

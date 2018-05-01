@@ -1,0 +1,37 @@
+#ifndef GHOST_H
+#define GHOST_H
+
+#include "rng.h"
+
+class Ghost
+{
+public:
+    Ghost();
+
+    bool active;
+
+    int x, y;
+    int tmpDist;
+    int totalDist;
+
+    int aniFrame;
+    bool boo;
+    bool booCheck;
+
+    int totalTime;
+    int aniTime;
+
+    float trans;
+
+    RNG rng;
+
+    void drawMe(int);
+
+    void activate(int a, int b);
+
+    void update();
+    int move();
+    void setPos(int a, int b);
+};
+
+#endif // GHOST_H

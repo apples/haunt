@@ -1,0 +1,52 @@
+#ifndef GAME_H
+#define GAME_H
+
+#include "bitmapfont.h"
+#include "frameratecounter.h"
+#include "ghostgroup.h"
+#include "humangroup.h"
+#include "rng.h"
+
+#include <cstdlib>
+#include <iostream>
+#include <GL/glfw.h>
+
+class Game
+{
+public:
+    Game();
+    virtual ~Game();
+
+    int windowWidth, windowHeight;
+
+    BitmapFont font;
+
+    bool running;
+    GLuint textures[2];
+
+    FramerateCounter framerate;
+    float startTime;
+
+    HumanGroup humans;
+    GhostGroup ghosts;
+
+    int init(int w, int h);
+    int initGLFW();
+    int load();
+    int reset();
+
+    int gameLoop();
+    void drawBackground();
+
+    template <typename derp> void printDebug(const derp &msg);
+};
+
+template <typename derp>
+void Game::printDebug(const derp &msg)
+{
+    std::cout << "DEBUG: " << msg << "\n";
+}
+
+extern Game game;
+
+#endif // GAME_H

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Game" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg -lgmon" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\Haunt" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add option="-static" />
+			<Add library="glfw" />
+			<Add library="opengl32" />
+			<Add library="glu32" />
+			<Add library="gdi32" />
+			<Add library="user32" />
+			<Add library="kernel32" />
+		</Linker>
+		<Unit filename="src\bitmapfont.cpp" />
+		<Unit filename="src\bitmapfont.h" />
+		<Unit filename="src\frameratecounter.cpp" />
+		<Unit filename="src\frameratecounter.h" />
+		<Unit filename="src\game.cpp" />
+		<Unit filename="src\game.h" />
+		<Unit filename="src\ghost.cpp" />
+		<Unit filename="src\ghost.h" />
+		<Unit filename="src\ghostgroup.cpp" />
+		<Unit filename="src\ghostgroup.h" />
+		<Unit filename="src\human.cpp" />
+		<Unit filename="src\human.h" />
+		<Unit filename="src\humangroup.cpp" />
+		<Unit filename="src\humangroup.h" />
+		<Unit filename="src\main.cpp" />
+		<Unit filename="src\makestring.h" />
+		<Unit filename="src\rng.cpp" />
+		<Unit filename="src\rng.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
